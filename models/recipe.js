@@ -15,10 +15,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   recipe.init({
-    userId: DataTypes.INTEGER,
-    recipeName: DataTypes.STRING,
+    user_id: DataTypes.INTEGER,
+    recipe_name: DataTypes.STRING,
     url: DataTypes.STRING,
-    signatureDish: DataTypes.BOOLEAN,
+    signature_dish: DataTypes.BOOLEAN,
     cooked: DataTypes.BOOLEAN
   }, {
     sequelize,

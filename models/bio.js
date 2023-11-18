@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   bio.init({
-    userId: DataTypes.INTEGER,
+    user_id: DataTypes.INTEGER,
     state: DataTypes.STRING,
     bio: DataTypes.STRING,
     cuisine: DataTypes.STRING,
