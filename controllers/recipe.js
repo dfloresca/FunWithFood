@@ -38,20 +38,33 @@ router.get("/view/:recipe_name", async (req, res) => {
 
 router.post('/add/:id', async (req, res) => {
     db.user.findOne({ where: { id: req.params.id } })
+    console.log(user.name)
         .then(user => {
-            const { recipe_name, url, description, signature_dish, cooked } = req.body; // goes and us access to whatever key/value inside of the object
+            const { recipeName, url, description, signatureDish, cooked } = req.body; // goes and us access to whatever key/value inside of the object
+            console.log('adding recipe to this user:', user.name);
             user.createRecipe({
-                recipe_name: recipe_name,
+                recipeName: recipeName,
                 url: url,
                 description: description,
-                signature_dish: signature_dish,
+                signatureDish: signatureDish,
                 cooked: cooked
             })
                 .then(newRecipe => {
                     console.log(newRecipe);
-                    res.redirect(`recipe/view/${recipe_name}`)
+                    res.redirect(`recipe/view/${newRecipe.recipe_name}`)
                 })
         })
+
+        // db.user.findOne()
+        // .then(user=>{
+        //     console.log("adding pet to this user:", user.firstName)
+        //     user.createPet({
+        //       name: 'Spot',
+        //       species: 'Mutt Dog'
+        //     }).then(dog=>{
+        //       console.log(dog);
+        //     });
+        // });
 
     // try {
     //     const { recipe_name, url, description, signature_dish, cooked } = req.body; // goes and us access to whatever key/value inside of the object

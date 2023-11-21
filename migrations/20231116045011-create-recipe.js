@@ -9,20 +9,20 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      user_id: {
+      userId: {
         type: Sequelize.INTEGER,
         references: {
           model: 'users',
           key: 'id'
         }
       },
-      recipe_name: {
+      recipeName: {
         type: Sequelize.STRING
       },
       url: {
         type: Sequelize.STRING
       },
-      signature_dish: {
+      signatureDish: {
         type: Sequelize.BOOLEAN
       },
       cooked: {
