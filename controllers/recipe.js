@@ -20,13 +20,13 @@ router.get("/add/:userId", (req, res) => {
     }
     return res.render("recipe/add");
 })
-router.get("/view/:recipe_name", async (req, res) => {
+router.get("/view/:recipeName", async (req, res) => {
 
     try {
         const user = await db.user.findOne({
-            where: { recipeName: req.params.recipe_name }
+            where: { recipeName: req.params.recipeName }
         });
-        if (recipeName === recipe.recipe_name) {
+        if (recipeName === recipe.recipeName) {
             console.log('current recipe here >>>');
         }
     } catch (error) {
@@ -37,9 +37,10 @@ router.get("/view/:recipe_name", async (req, res) => {
 })
 
 // router.post('/add/:id', async (req, res) => {
+//     console.log('start of post route')
 //     try {
 //         const user = await db.user.findOne({ where: { id: req.params } })
-//         console.log(user.name)
+//         console.log('lets see the user name', user.name)
 //             .then(user => {
 //                 const { recipeName, url, description, signatureDish, cooked } = req.body; // goes and us access to whatever key/value inside of the object
 //                 console.log('adding recipe to this user:', user.name);
@@ -51,22 +52,23 @@ router.get("/view/:recipe_name", async (req, res) => {
 //                     cooked: cooked
 //                 })
 //                     .then(newRecipe => {
-//                         console.log(newRecipe);
+//                         console.log('here is the new recipe', newRecipe);
 //                         res.redirect(`/`)
 //                     })
 //             })
 //     } catch(error) {
-//         console.log('there was an error', error)
+//         console.log('there was an error', error.message)
 //     }
 // });
 
 router.post('/add/:id', async (req, res) => {
+    console.log('start of route');
     try {
         const user = await db.user.findOne({ where: { id: req.params.id } });
-        console.log(user.name);
+        console.log('the user name', user.name);
 
+        console.log('req.body data', req.body)
         const { recipeName, url, description, signatureDish, cooked } = req.body;
-
         console.log('adding recipe to this user:', user.name);
 
         const newRecipe = await user.createRecipe({
@@ -78,7 +80,7 @@ router.post('/add/:id', async (req, res) => {
         });
 
         console.log(newRecipe);
-        res.redirect(`recipe/view/${newRecipe.recipe_name}`);
+        res.redirect(`recipe/view/${newRecipe.recipeName}`);
     } catch (error) {
         console.error('Error:', error);
         res.status(500).send('Server Error');

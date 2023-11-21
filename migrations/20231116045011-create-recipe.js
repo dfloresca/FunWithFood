@@ -19,6 +19,9 @@ module.exports = {
       recipeName: {
         type: Sequelize.STRING
       },
+      description: {
+        type: Sequelize.STRING
+      },
       url: {
         type: Sequelize.STRING
       },
