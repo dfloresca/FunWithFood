@@ -21,90 +21,68 @@ router.get("/add/:userId", (req, res) => {
     return res.render("recipe/add");
 })
 router.get("/view/:recipe_name", async (req, res) => {
-    
-        try {
-            const user = await db.user.findOne({
-                where: { recipeName: req.params.recipe_name }
-            });
-            if (recipeName === recipe.recipe_name) {
-                console.log('current recipe here >>>');
-            }
-        } catch (error) {
-            console.log('did not find recipe b/c of >>>', error);
+
+    try {
+        const user = await db.user.findOne({
+            where: { recipeName: req.params.recipe_name }
+        });
+        if (recipeName === recipe.recipe_name) {
+            console.log('current recipe here >>>');
         }
-    
+    } catch (error) {
+        console.log('did not find recipe b/c of >>>', error);
+    }
+
     return res.render("recipe/view");
 })
 
+// router.post('/add/:id', async (req, res) => {
+//     try {
+//         const user = await db.user.findOne({ where: { id: req.params } })
+//         console.log(user.name)
+//             .then(user => {
+//                 const { recipeName, url, description, signatureDish, cooked } = req.body; // goes and us access to whatever key/value inside of the object
+//                 console.log('adding recipe to this user:', user.name);
+//                 user.createRecipe({
+//                     recipeName: recipeName,
+//                     url: url,
+//                     description: description,
+//                     signatureDish: signatureDish,
+//                     cooked: cooked
+//                 })
+//                     .then(newRecipe => {
+//                         console.log(newRecipe);
+//                         res.redirect(`/`)
+//                     })
+//             })
+//     } catch(error) {
+//         console.log('there was an error', error)
+//     }
+// });
+
 router.post('/add/:id', async (req, res) => {
-    db.user.findOne({ where: { id: req.params.id } })
-    console.log(user.name)
-        .then(user => {
-            const { recipeName, url, description, signatureDish, cooked } = req.body; // goes and us access to whatever key/value inside of the object
-            console.log('adding recipe to this user:', user.name);
-            user.createRecipe({
-                recipeName: recipeName,
-                url: url,
-                description: description,
-                signatureDish: signatureDish,
-                cooked: cooked
-            })
-                .then(newRecipe => {
-                    console.log(newRecipe);
-                    res.redirect(`recipe/view/${newRecipe.recipe_name}`)
-                })
-        })
+    try {
+        const user = await db.user.findOne({ where: { id: req.params.id } });
+        console.log(user.name);
 
-        // db.user.findOne()
-        // .then(user=>{
-        //     console.log("adding pet to this user:", user.firstName)
-        //     user.createPet({
-        //       name: 'Spot',
-        //       species: 'Mutt Dog'
-        //     }).then(dog=>{
-        //       console.log(dog);
-        //     });
-        // });
+        const { recipeName, url, description, signatureDish, cooked } = req.body;
 
-    // try {
-    //     const { recipe_name, url, description, signature_dish, cooked } = req.body; // goes and us access to whatever key/value inside of the object
-    //     const { id } = req.user.get()
-    //     const newRecipe = await db.recipe.create({
-    //         recipe_name: recipe_name,
-    //         user_id: id,
-    //         url: url,
-    //         description: description,
-    //         signature_dish: signature_dish,
-    //         cooked: cooked
-    //     });
-    //     console.log('my new recipe >>>', newRecipe);
-    //     res.redirect(`recipe/view/${recipe_name}`);
-    // } catch (error) {
-    //     console.log('new recipe was not created b/c of >>>', error);
-    // }
+        console.log('adding recipe to this user:', user.name);
 
-    // async function findOrCreate() {
-    //     try {
-    //         console.log(req.body);
-    //         const { recipe_name, url, description, signature_dish, cooked } = req.body; // goes and us access to whatever key/value inside of the object
-    //         const { user_id } = req.user.get()
-    //         const recipe = await db.recipe.findOrCreate({
-    //             where: {},
-    //             defaults: {
-    //                 user_id: user_id,
-    //                 url: url,
-    //                 description: description,
-    //                 signature_dish: signature_dish,
-    //                 cooked: cooked
-    //             },
-    //         }).then(([recipe, created]) => {
-    //             console.log('all recipes here >>>', recipe);
-    //             res.redirect(`/recipe/view/${this.recipe_name}`)
-    //         })
-    //     } catch (error) {
-    //         console.log('did not find all users because of >>>', error);
-    //     }
-    // }
+        const newRecipe = await user.createRecipe({
+            recipeName,
+            url,
+            description,
+            signatureDish,
+            cooked
+        });
+
+        console.log(newRecipe);
+        res.redirect(`recipe/view/${newRecipe.recipe_name}`);
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).send('Server Error');
+    }
 });
 
 
