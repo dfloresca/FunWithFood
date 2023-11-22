@@ -23,7 +23,7 @@ router.get("/add/:userId", (req, res) => {
 router.get("/view/:recipeName", async (req, res) => {
 
     try {
-        const user = await db.user.findOne({
+        const recipe = await db.recipe.findOne({
             where: { recipeName: req.params.recipeName }
         });
         if (recipeName === recipe.recipeName) {
@@ -33,7 +33,7 @@ router.get("/view/:recipeName", async (req, res) => {
         console.log('did not find recipe b/c of >>>', error);
     }
 
-    return res.render("recipe/view");
+    return res.render("recipe/view", recipeName);
 })
 
 // router.post('/add/:id', async (req, res) => {
@@ -61,10 +61,11 @@ router.get("/view/:recipeName", async (req, res) => {
 //     }
 // });
 
-router.post('/add/:id', async (req, res) => {
+router.post('/add/', async (req, res) => {
     console.log('start of route');
     try {
-        const user = await db.user.findOne({ where: { id: req.params.id } });
+        const { id } = req.user.get();
+        const user = await db.user.findOne({ where: { id: id } });
         console.log('the user name', user.name);
 
         console.log('req.body data', req.body)
@@ -80,7 +81,7 @@ router.post('/add/:id', async (req, res) => {
         });
 
         console.log(newRecipe);
-        res.redirect(`recipe/view/${newRecipe.recipeName}`);
+        res.redirect(`view/${newRecipe.recipeName}`);
     } catch (error) {
         console.error('Error:', error);
         res.status(500).send('Server Error');
