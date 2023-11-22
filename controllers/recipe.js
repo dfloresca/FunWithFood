@@ -20,20 +20,24 @@ router.get("/add/:userId", (req, res) => {
     }
     return res.render("recipe/add");
 })
+
 router.get("/view/:recipeName", async (req, res) => {
 
     try {
+        const test = req.params.recipeName
+        console.log('test')
         const recipe = await db.recipe.findOne({
-            where: { recipeName: req.params.recipeName }
+            where: { recipeName: test }
         });
-        if (recipeName === recipe.recipeName) {
-            console.log('current recipe here >>>');
-        }
+        console.log(recipe)
+        // if (recipeName === recipe.recipeName) {
+        //     console.log('current recipe here >>>');
+        // }
+        return res.render("recipe/view", { recipe });
     } catch (error) {
         console.log('did not find recipe b/c of >>>', error);
     }
 
-    return res.render("recipe/view", recipeName);
 })
 
 // router.post('/add/:id', async (req, res) => {
@@ -81,7 +85,7 @@ router.post('/add/', async (req, res) => {
         });
 
         console.log(newRecipe);
-        res.redirect(`view/${newRecipe.recipeName}`);
+        res.redirect(`view/${recipeName}`);
     } catch (error) {
         console.error('Error:', error);
         res.status(500).send('Server Error');
