@@ -42,6 +42,23 @@ router.get("/view/:recipeName", async (req, res) => {
 
 })
 
+router.get("/delete/:recipeName", async (req, res) => {
+    console.log('lets delete a recipe')
+    try {
+        const test = req.params.recipeName
+        console.log('test')
+        const recipe = await db.recipe.findOne({
+            where: { recipeName: test }
+        });
+        console.log(recipe)
+        // if (recipeName === recipe.recipeName) {
+        //     console.log('current recipe here >>>');
+        // }
+        return res.render("recipe/delete", { recipe });
+    } catch (error) {
+        console.log('did not find recipe b/c of >>>', error);
+    }
+})
 // router.post('/add/:id', async (req, res) => {
 //     console.log('start of post route')
 //     try {
