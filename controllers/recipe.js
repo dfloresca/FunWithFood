@@ -1,9 +1,11 @@
+require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const isLoggedIn = require('../middleware/isLoggedIn');
 const session = require('express-session');
 const db = require('../models')
 const passport = require('../config/ppConfig');
+const axios = require('axios');
 
 router.get("/add/:userId", (req, res) => {
     async function findOneUser() {

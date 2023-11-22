@@ -6,6 +6,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('./config/ppConfig');
 const isLoggedIn = require('./middleware/isLoggedIn');
+const db = require('./models')
 
 // environment variables
 SECRET_SESSION = process.env.SECRET_SESSION;
@@ -45,9 +46,19 @@ app.use('/bio', isLoggedIn, require('./controllers/bio'));
 app.use('/recipe', isLoggedIn, require('./controllers/recipe'));
 
 // Add this below /auth controllers
-app.get('/profile', isLoggedIn, (req, res) => {
-  const { id, name, email } = req.user.get(); 
-  res.render('profile', { id, name, email });
+app.get('/profile', isLoggedIn, async (req, res) => {
+  try {
+    const { id, name, email } = req.user.get();
+    const userRecipes = await db.recipe.findAll({
+      where: {
+        userId: id
+      }
+    })
+    res.render('profile', { id, name, email, userRecipes });
+  } catch (error) {
+    console.log('Error ====>', error);
+    res.status(500).send('error occurred');
+  }
 });
 
 const PORT = process.env.PORT || 3000;
