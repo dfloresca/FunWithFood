@@ -111,6 +111,18 @@ router.post('/add/', async (req, res) => {
     }
 });
 
-
+router.delete('/delete/:recipeName', async (req, res) => {
+    console.log('start of delete route')
+    try {
+        const { selectedRecipe } = req.params.recipeName
+        let numOfRowsDeleted = await db.recipe.destroy({
+            where: { recipeName: selectedRecipe }
+        });
+        console.log('number of rows deleted >>>', numOfRowsDeleted)
+        res.redirect('/profile');
+    } catch (error) {
+        console.log('did not delete Recipe because of >>>', error);
+    }
+})
 
 module.exports = router;
