@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.83.1">
-    <title>Edit Account</title>
+    <title>Edit recipe</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
 
@@ -39,34 +39,31 @@
 
 <body class="text-center">
 
-    <main action="/bio/edit/<%= email %>/?_methos=PUT" method="POST" class="form-signin">
-        <form >
-            <img class="mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-            <h1 class="h3 mb-3 fw-normal">Edit Bio  </h1>
+    <main class="form-signin">
+        <form action="/recipe/<%= recipe.recipeName %>/?_method=PUT" method="POST" >
+            <h1 class="h3 mb-3 fw-normal">Edit recipe <%= recipe.recipeName %>  </h1>
 
-            
             <div class="form-floating">
-                <input type="text" class="form-control" id="state" name="state" placeholder="state">
-                <label for="state">state</label>
+                <input type="text" class="form-control" id="description" name="description" placeholder="<%= recipe.description %>">
+                <label for="description">Recipe Description</label>
             </div>
             
-            <div class="form-floating">
-                <input type="text" class="form-control" id="bio" name="bio" placeholder="bio">
-                <label for="bio">bio</label>
+            <div class="form-check d-flex justify-content-center mb-4">
+                <input name="signatureDish" class="form-check-input me-2" type="checkbox" value="true"
+                    id="signatureDish"/>
+                <label class="form-check-label" for="signatureDish">
+                    Signature Dish?
+                </label>
+            </div>
+            <div class="form-check d-flex justify-content-center mb-4">
+                <input name="cooked" class="form-check-input me-2" type="checkbox" value="true" id="cooked" />
+                <label class="form-check-label" for="cooked">
+                    Cooked?
+                </label>
             </div>
             
-            <div class="form-floating">
-                <input type="text" class="form-control" id="cuisine" name="cuisine" placeholder="cuisine">
-                <label for="cuisine">cuisine</label>
-            </div>
-            
-            <div class="form-floating">
-                <input type="text" class="form-control" id="experience" name="experience" placeholder="experience">
-                <label for="experience">experience</label>
-            </div>
-            
-            <button class="btn btn-lg btn-primary" type="submit">Update bio</button> <br><br>
-            <a href="/profile" class="btn btn-danger">Cancel Update</a>
+            <button class="btn btn-lg btn-primary" type="submit">Update recipe</button> <br><br>
+            <a href="/recipe/view/<%= recipe.recipeName %>" class="btn btn-danger">Cancel Update</a>
             <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
         </form>
     </main>

@@ -27,10 +27,11 @@ router.get("/add/:userId", (req, res) => {
 router.get("/view/:recipeName", async (req, res) => {
 
     try {
-        const test = req.params.recipeName
-        console.log('test')
+        
+        const selectedRecipe = req.params.recipeName
+        console.log('selectedRecipe')
         const recipe = await db.recipe.findOne({
-            where: { recipeName: test }
+            where: { recipeName: selectedRecipe }
         });
         console.log(recipe)
         // if (recipeName === recipe.recipeName) {
@@ -46,10 +47,11 @@ router.get("/view/:recipeName", async (req, res) => {
 router.get("/delete/:recipeName", async (req, res) => {
     console.log('lets delete a recipe')
     try {
-        const test = req.params.recipeName
-        console.log('test')
+        const selectedRecipe = req.params.recipeName
+        console.log('selectedRecipe');
+
         const recipe = await db.recipe.findOne({
-            where: { recipeName: test }
+            where: { recipeName: selectedRecipe }
         });
         console.log(recipe)
         // if (recipeName === recipe.recipeName) {
@@ -59,7 +61,26 @@ router.get("/delete/:recipeName", async (req, res) => {
     } catch (error) {
         console.log('did not find recipe b/c of >>>', error);
     }
-})
+});
+
+router.get("/edit/:recipeName", async (req, res) => {
+    console.log('lets edit a recipe')
+    try {
+        const selectedRecipe = req.params.recipeName
+        console.log('selectedRecipe', selectedRecipe);
+
+        const recipe = await db.recipe.findOne({
+            where: { recipeName: selectedRecipe }
+        });
+        console.log(recipe)
+        // if (recipeName === recipe.recipeName) {
+        //     console.log('current recipe here >>>');
+        // }
+        return res.render("recipe/edit", { recipe });
+    } catch (error) {
+        console.log('did not find recipe b/c of >>>', error);
+    }
+});
 // router.post('/add/:id', async (req, res) => {
 //     console.log('start of post route')
 //     try {
@@ -111,6 +132,34 @@ router.post('/add/', async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
+
+router.put('/:recipeName', async (req, res) => {
+    console.log('Lets update a recipe');
+    try {
+        const { id } = req.user.get();
+        const user = await db.user.findOne({ where: { id: id } });
+        console.log('the user name', user.name);
+        
+        const { recipeName } = req.params;
+        console.log('the recipe we are updating', recipeName)
+        const { description, signatureDish, cooked } = req.body;
+        console.log('the parameters we are working with', req.body);
+        const numRowsUpdated = await db.recipe.update({
+            description: description,
+            cooked: cooked,
+            signatureDish: signatureDish
+        }, {
+            where: {
+                recipeName: recipeName
+            }
+        });
+        console.log('SUCCESS!!! number of lines updated', numRowsUpdated);
+        req.flash('success', 'recipe has been successfully updated');
+        res.redirect('/profile');
+    } catch (error) {
+        console.log('did not update recipe because of ==>', error)
+    }
+})
 
 router.delete('/:recipeName', async (req, res) => {
     console.log('start of delete route');

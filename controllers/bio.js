@@ -1,13 +1,15 @@
+require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const isLoggedIn = require('../middleware/isLoggedIn');
 const session = require('express-session');
 const db = require('../models')
 const passport = require('../config/ppConfig');
+const methodOverride = require('method-override');
+
 
 // GET /bio
-router.get("/edit/:email", (req, res) => {
-    async function findOneUser() {
+router.get("/edit/:email", async (req, res) => {
         try {
             const user = await db.user.findOne({
                 where: { email: req.params.email }
@@ -18,9 +20,9 @@ router.get("/edit/:email", (req, res) => {
         } catch (error) {
             console.log('did not find user b/c of >>>', error);
         }
-    }
-    return res.render("bio/edit");
-})
+        return res.render("bio/edit", { user });
+    })
+
 
 // router.put("/edit/:email", (req, res) => {
 //     async function updateUser() {
