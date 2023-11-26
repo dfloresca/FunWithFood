@@ -6,6 +6,7 @@ const session = require('express-session');
 const db = require('../models')
 const passport = require('../config/ppConfig');
 const axios = require('axios');
+const methodOverride = require('method-override');
 
 router.get("/add/:userId", (req, res) => {
     async function findOneUser() {
@@ -111,18 +112,21 @@ router.post('/add/', async (req, res) => {
     }
 });
 
-router.delete('/delete/:recipeName', async (req, res) => {
-    console.log('start of delete route')
+router.delete('/:recipeName', async (req, res) => {
+    console.log('start of delete route');
     try {
-        const { selectedRecipe } = req.params.recipeName
+        const { recipeName } = req.params;
         let numOfRowsDeleted = await db.recipe.destroy({
-            where: { recipeName: selectedRecipe }
+            where: { 
+                recipeName: recipeName
+            }
         });
-        console.log('number of rows deleted >>>', numOfRowsDeleted)
+        console.log('number of rows deleted >>>', numOfRowsDeleted);
+        req.flash('recipe has been deleted');
         res.redirect('/profile');
     } catch (error) {
         console.log('did not delete Recipe because of >>>', error);
     }
-})
+});
 
 module.exports = router;
