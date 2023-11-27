@@ -46,7 +46,6 @@ app.get('/', (req, res) => {
 })
 
 app.use('/auth', require('./controllers/auth'));
-app.use('/bio', isLoggedIn, require('./controllers/bio'));
 app.use('/recipe', isLoggedIn, require('./controllers/recipe'));
 
 // Add this below /auth controllers

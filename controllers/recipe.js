@@ -7,6 +7,10 @@ const db = require('../models')
 const passport = require('../config/ppConfig');
 const axios = require('axios');
 const methodOverride = require('method-override');
+const { API_HOST, API_KEY } = { 
+    API_HOST: process.env.API_HOST,
+    API_KEY: process.env.API_KEY
+}
 
 router.get("/add/:userId", (req, res) => {
     async function findOneUser() {
@@ -27,7 +31,7 @@ router.get("/add/:userId", (req, res) => {
 router.get("/view/:recipeName", async (req, res) => {
 
     try {
-        
+
         const selectedRecipe = req.params.recipeName
         console.log('selectedRecipe')
         const recipe = await db.recipe.findOne({
@@ -81,30 +85,83 @@ router.get("/edit/:recipeName", async (req, res) => {
         console.log('did not find recipe b/c of >>>', error);
     }
 });
-// router.post('/add/:id', async (req, res) => {
-//     console.log('start of post route')
+
+router.get('/parsed/:recipeName', async (req, res) => {
+    console.log("Let's extract the recipe data from a URL");
+    try {
+        const { recipeName } = req.params; // Fix variable name
+        const recipe = await db.recipe.findOne({
+            where: { recipeName: recipeName }
+        });
+
+        if (!recipe) {
+            return res.status(404).send('Recipe not found');
+        }
+
+        console.log('This is the recipe we are parsing:', recipeName);
+        const parsedRecipe = {
+            method: 'GET',
+            url: 'https://cookr-recipe-parser.p.rapidapi.com/getRecipe',
+            params: {
+                source: `${recipe.url}`
+            },
+            headers: {
+                'X-RapidAPI-Key': API_KEY,
+                'X-RapidAPI-Host': API_HOST
+            }
+        };
+
+        try {
+            const response = await axios.request(parsedRecipe);
+            console.log('recipe Data', response.data);
+            // const { recipeData } = response.data;
+            console.log('recipe Data description', response.data.recipe.description);
+            console.log('recipe data cookTime', response.data.recipe.recipeInstructions)
+            return res.render("recipe/parsed", { recipe, response });
+        } catch (error) {
+            console.error('Error parsing recipe:', error);
+            return res.status(500).send('Error parsing recipe');
+        }
+    } catch (error) {
+        console.log('There was an error:', error);
+        return res.status(500).send('Internal Server Error');
+    }
+});
+
+// router.get('/parsed/:recipeName', async (req, res) => {
+//     console.log("let's extract the recipe data from a url");
 //     try {
-//         const user = await db.user.findOne({ where: { id: req.params } })
-//         console.log('lets see the user name', user.name)
-//             .then(user => {
-//                 const { recipeName, url, description, signatureDish, cooked } = req.body; // goes and us access to whatever key/value inside of the object
-//                 console.log('adding recipe to this user:', user.name);
-//                 user.createRecipe({
-//                     recipeName: recipeName,
-//                     url: url,
-//                     description: description,
-//                     signatureDish: signatureDish,
-//                     cooked: cooked
-//                 })
-//                     .then(newRecipe => {
-//                         console.log('here is the new recipe', newRecipe);
-//                         res.redirect(`/`)
-//                     })
-//             })
-//     } catch(error) {
-//         console.log('there was an error', error.message)
+//         const { recipeName } = req.params
+//         const recipe = await db.recipe.findOne({
+//             where: { recipeName: recipeName }
+//         });
+//         console.log('this is the recipe we are parsing==>', recipeName)
+//         const parsedRecipe = {
+//             method: 'GET',
+//             url: 'https://cookr-recipe-parser.p.rapidapi.com/getRecipe',
+//             params: {
+//                 source: `${recipe.url}`
+//             },
+//             headers: {
+//                 'X-RapidAPI-Key': API_KEY,
+//                 'X-RapidAPI-Host': API_HOST
+//             }
+//         };
+
+//         try {
+//             const response = await axios.request(parsedRecipe);
+//             console.log(response.data);
+//             console.log(parsedRecipe)
+//             return res.render("recipe/parsed", { recipe, parsedRecipe })
+//         } catch (error) {
+//             console.error(error);
+//         }
+
+
+//     } catch (error) {
+//         console.log('there was an error', error)
 //     }
-// });
+// })
 
 router.post('/add/', async (req, res) => {
     console.log('start of route');
@@ -139,7 +196,7 @@ router.put('/:recipeName', async (req, res) => {
         const { id } = req.user.get();
         const user = await db.user.findOne({ where: { id: id } });
         console.log('the user name', user.name);
-        
+
         const { recipeName } = req.params;
         console.log('the recipe we are updating', recipeName)
         const { description, signatureDish, cooked } = req.body;
@@ -166,7 +223,7 @@ router.delete('/:recipeName', async (req, res) => {
     try {
         const { recipeName } = req.params;
         let numOfRowsDeleted = await db.recipe.destroy({
-            where: { 
+            where: {
                 recipeName: recipeName
             }
         });
@@ -177,5 +234,8 @@ router.delete('/:recipeName', async (req, res) => {
         console.log('did not delete Recipe because of >>>', error);
     }
 });
+
+
+
 
 module.exports = router;

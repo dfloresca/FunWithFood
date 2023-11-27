@@ -13,7 +13,7 @@ async function createUser() {
     } catch (error) {
         console.log('new user was not created b/c of >>>', error);
     }
-    
+
 }
 // @todo run createUser function below
 
@@ -24,7 +24,7 @@ async function findOneUser() {
         const user = await db.user.findOne({
             where: { id: 1 }
         });
-        console.log('current user here >>>', user);  
+        console.log('current user here >>>', user);
     } catch (error) {
         console.log('did not find user b/c of >>>', error);
     }
@@ -35,7 +35,7 @@ async function findOneUser() {
 async function findAllUsers() {
     try {
         const users = await db.user.findAll();
-        console.log('all users here >>>', users);  
+        console.log('all users here >>>', users);
     } catch (error) {
         console.log('did not find all users because of >>>', error);
     }
@@ -51,7 +51,7 @@ async function findOrCreate() {
                 name: 'Brian Smith',
             },
         });
-        console.log('all users here >>>', users);  
+        console.log('all users here >>>', users);
     } catch (error) {
         console.log('did not find all users because of >>>', error);
     }
@@ -88,3 +88,23 @@ async function deleteUser() {
 }
 // @todo run deleteUser function below
 
+// const axios = require('axios');
+
+// const options = {
+//     method: 'GET',
+//     url: 'https://cookr-recipe-parser.p.rapidapi.com/getRecipe',
+//     params: {
+//         source: `${recipe.url}`
+//     },
+//     headers: {
+//         'X-RapidAPI-Key': API_KEY,
+//         'X-RapidAPI-Host': API_HOST
+//     }
+// };
+
+// try {
+//     const response = await axios.request(options);
+//     console.log(response.data);
+// } catch (error) {
+//     console.error(error);
+// }

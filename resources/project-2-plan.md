@@ -25,7 +25,7 @@ In the space below:
 
 ----------------------------------------------------------
 ### ERD
-![Alt text](ERD.png)
+![Alt text](ERD.jpeg)
 ----------------------------------------------------------
 ### User Stories
 *	As a user I want to be able to login in to my account
