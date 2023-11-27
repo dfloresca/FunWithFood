@@ -1,6 +1,6 @@
-# `Express Authentication`
+# `FunWithFood`
 
-Express authentication template using Passport + Flash messages + custom middleware
+
 
 ## What it includes
 
@@ -20,6 +20,19 @@ Express authentication template using Passport + Flash messages + custom middlew
 | name | String | Must be provided |
 | email | String | Must be unique / used for login |
 | password | String | Stored as a hash |
+| createdAt | Date | Auto-generated |
+| updatedAt | Date | Auto-generated |
+
+### Recipe Model
+
+| Column Name | Data Type | Notes |
+| --------------- | ------------- | ------------------------------ |
+| id | Integer | Serial Primary Key, Auto-generated |
+| recipeName | String |  |
+| description | String |  |
+| url | String |  |
+| signatureDish | Boolean |  |
+| cooked | Boolean |  |
 | createdAt | Date | Auto-generated |
 | updatedAt | Date | Auto-generated |
 
@@ -61,12 +74,12 @@ npm install
 ```json
 {
   "development": {
-    "database": "express_auth_dev",
+    "database": "funwithfood",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
-    "database": "express_auth_test",
+    "database": "funwithfood",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
@@ -83,7 +96,7 @@ npm install
 }
 ```
 
-`2` Create database `express_auth_dev`
+`2` Create database `funwithfood`
 
 ```text
 sequelize db:create
