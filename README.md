@@ -66,7 +66,7 @@ npm install
 ```
 
 `3` setup a `.env` file and add `SECRET_SESSION=YOUR_KEY_HERE` and `API_KEY=API_KEY` and `API_HOST=API_HOST`
-  - obtain API key and host by signing up here: 
+  - obtain `API_KEY` and `API_HOST` by signing up here: 
     - [cookr-api](https://rapidapi.com/dashdash/api/cookr-recipe-parser): API to parse recipe from URL's. Free sign up for up to 100 hits per month, signup through rapid API
 
 `4` We have the current packages for `authentication`. These are the following packages:
@@ -165,3 +165,32 @@ sequelize db:create
 - `package.json`: The settings file that stores scripts and list of dependencies that are used inside your app.
 - `README.md`: The main markdown file that written to explain the details your app.
 - `server.js`: The main file that controls the entire application.
+
+
+![signup page](resources/signup.png)
+The page for signing up
+===
+![Login page](resources/login.png)
+Login page
+===
+![Profile view](resources/profilepage.png)
+Profile page
+===
+![Recipe add page](resources/recipeadd.png)
+page for adding recipes
+===
+![Recipe View](resources/recipeview.png)
+Recipe view page with buttons for editing and deleting as well as a link to the original recipe and the parsed recipe
+===
+![Edit page](resources/edit.png)
+page to enter edit details
+===
+![Parsed View](resources/parsedview.png)
+data parsed from recipe URL to highlight the recipe
+===
+![delete confirmation](resources/deleteconfirmation.png)
+confirmation for deleting
+===
+![404 error page](resources/error.png)  
+404 error page
+===
