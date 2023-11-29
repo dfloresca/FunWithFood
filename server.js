@@ -42,11 +42,11 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-  res.render('index');
+  res.redirect('profile');
 })
 
 app.use('/auth', require('./controllers/auth'));
-app.use('/recipe', isLoggedIn, require('./controllers/recipe'));
+app.use('/recipe', require('./controllers/recipe'));
 
 // Add this below /auth controllers
 app.get('/profile', isLoggedIn, async (req, res) => {
@@ -63,6 +63,15 @@ app.get('/profile', isLoggedIn, async (req, res) => {
     res.status(500).send('error occurred');
   }
 });
+
+app.use((req, res, next) => {
+  res.status(404).render('404', { message: 'Nothing to cook here unfortunately' });
+});
+
+app.get('/404', (req, res) => {
+  res.send('404 Not Found').render('404', { message: 'Nothing to cook here unfortunately' });
+});
+
 
 const PORT = process.env.PORT || 3000;
 const server = app.listen(PORT, () => {

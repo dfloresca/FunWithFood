@@ -7,6 +7,7 @@ const db = require('../models')
 const passport = require('../config/ppConfig');
 const axios = require('axios');
 const methodOverride = require('method-override');
+
 const { API_HOST, API_KEY } = { 
     API_HOST: process.env.API_HOST,
     API_KEY: process.env.API_KEY
@@ -132,8 +133,6 @@ router.get('/parsed/:recipeName', async (req, res) => {
         return res.status(500).render('error', { message: 'Internal Server Error'});
     }
 });
-
-
 
 router.post('/add/', async (req, res) => {
     console.log('start of route');

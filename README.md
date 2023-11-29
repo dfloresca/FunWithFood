@@ -28,11 +28,11 @@
 | Column Name | Data Type | Notes |
 | --------------- | ------------- | ------------------------------ |
 | id | Integer | Serial Primary Key, Auto-generated |
-| recipeName | String |  |
-| description | String |  |
-| url | String |  |
-| signatureDish | Boolean |  |
-| cooked | Boolean |  |
+| recipeName | String | Name of Recipe |
+| description | String | a description of the recipe |
+| url | String | used to parse data and  to reference recipe |
+| signatureDish | Boolean | indicates whether this is a signature dish or not |
+| cooked | Boolean | Indicates if this has been cooked |
 | createdAt | Date | Auto-generated |
 | updatedAt | Date | Auto-generated |
 
@@ -47,6 +47,15 @@
 | POST | /auth/signup | auth.js | Creates User |
 | GET | /auth/logout | auth.js | Removes session info |
 | GET | /profile | server.js | Regular User Profile |
+| GET | /recipe/add/:userId | recipe.js | Create recipe entry screen |
+| GET | /recipe/view/:recipeName | recipe.js | views the indicated recipe |
+| GET | /recipe/delete/:recipeName | recipe.js | Confirmation page for recipe deletion |
+| GET | /recipe/edit/:recipeName | recipe.js | Form for updating recipe |
+| GET | /recipe/parsed/:recipeName | recipe.js | Links to page with parsed recipe |
+| POST | /recipe/add | recipe.js | Creates Recipe |
+| PUT | /recipe/:recipeName | recipe.js | Updates selected recipe |
+| DELETE | /recipe/:recipeName | recipe.js | Deletes selected recipe |
+
 
 ## `1` Fork & Clone Project & Install Dependencies
 `1` The first thing that we are going to do is `fork` and `clone`
@@ -56,7 +65,11 @@
 npm install
 ```
 
-`3` We have the current packages for `authentication`. These are the following packages:
+`3` setup a `.env` file and add `SECRET_SESSION=YOUR_KEY_HERE` and `API_KEY=API_KEY` and `API_HOST=API_HOST`
+  - obtain API key and host by signing up here: 
+    - [cookr-api](https://rapidapi.com/dashdash/api/cookr-recipe-parser): API to parse recipe from URL's. Free sign up for up to 100 hits per month, signup through rapid API
+
+`4` We have the current packages for `authentication`. These are the following packages:
 
 -  [bcryptjs](https://www.npmjs.com/package/bcryptjs): A library to help you hash passwords. ( [wikipedia](https://en.wikipedia.org/wiki/Bcrypt) ) 
     - Blowfish has a 64-bit block size and a variable key length from 32 bits up to 448 bits.
@@ -65,6 +78,8 @@ npm install
 - [passport-local](http://www.passportjs.org/packages/passport-local/): The local authentication strategy authenticates users using a username and password. The strategy requires a verify callback, which accepts these credentials and calls done providing a user. [passport-local](http://www.passportjs.org/packages/passport-local/)
 - [express-session](https://github.com/expressjs/session): Create a session middleware with given *options*.
 - [method-override](https://github.com/expressjs/method-override): Lets you use HTTP verbs such as PUT or DELETE in places where the client doesn't support it.
+- [axios](https://axios-http.com/docs/intro): a promise-based HTTP Client for node.js and the browser. It is isomorphic (= it can run in the browser and nodejs with the same codebase). On the server-side it uses the native node.js http module, while on the client (browser) it uses XMLHttpRequests.
+
 
 
 ## `2` Create Database & Update Sequelize Config
