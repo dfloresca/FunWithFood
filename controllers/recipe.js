@@ -15,14 +15,16 @@ const { API_HOST, API_KEY } = {
 router.get("/add/:userId", (req, res) => {
     async function findOneUser() {
         try {
+            const userId = req.params
             const user = await db.user.findOne({
-                where: { userId: req.params.userId }
+                where: { userId: userId }
             });
-            if (userId === user.id) {
-                console.log('current user here >>>');
+            if (user.id !== userId) {
+                return res.status(404).render('error', { message: 'Incorrect User'});;
             }
         } catch (error) {
             console.log('did not find user b/c of >>>', error);
+            return res.status(500).render('error', { message: 'Internal Server Error'});
         }
     }
     return res.render("recipe/add");
@@ -44,6 +46,7 @@ router.get("/view/:recipeName", async (req, res) => {
         return res.render("recipe/view", { recipe });
     } catch (error) {
         console.log('did not find recipe b/c of >>>', error);
+        return res.status(500).render('error', { message: 'Internal Server Error'});
     }
 
 })
@@ -64,6 +67,7 @@ router.get("/delete/:recipeName", async (req, res) => {
         return res.render("recipe/delete", { recipe });
     } catch (error) {
         console.log('did not find recipe b/c of >>>', error);
+        return res.status(500).render('error', { message: 'Internal Server Error'});
     }
 });
 
@@ -83,6 +87,7 @@ router.get("/edit/:recipeName", async (req, res) => {
         return res.render("recipe/edit", { recipe });
     } catch (error) {
         console.log('did not find recipe b/c of >>>', error);
+        return res.status(500).render('error', { message: 'Internal Server Error'});
     }
 });
 
@@ -120,48 +125,15 @@ router.get('/parsed/:recipeName', async (req, res) => {
             return res.render("recipe/parsed", { recipe, response });
         } catch (error) {
             console.error('Error parsing recipe:', error);
-            return res.status(500).send('Error parsing recipe');
+            return res.status(500).render('error', { message: 'Internal Server Error'});
         }
     } catch (error) {
         console.log('There was an error:', error);
-        return res.status(500).send('Internal Server Error');
+        return res.status(500).render('error', { message: 'Internal Server Error'});
     }
 });
 
-// router.get('/parsed/:recipeName', async (req, res) => {
-//     console.log("let's extract the recipe data from a url");
-//     try {
-//         const { recipeName } = req.params
-//         const recipe = await db.recipe.findOne({
-//             where: { recipeName: recipeName }
-//         });
-//         console.log('this is the recipe we are parsing==>', recipeName)
-//         const parsedRecipe = {
-//             method: 'GET',
-//             url: 'https://cookr-recipe-parser.p.rapidapi.com/getRecipe',
-//             params: {
-//                 source: `${recipe.url}`
-//             },
-//             headers: {
-//                 'X-RapidAPI-Key': API_KEY,
-//                 'X-RapidAPI-Host': API_HOST
-//             }
-//         };
 
-//         try {
-//             const response = await axios.request(parsedRecipe);
-//             console.log(response.data);
-//             console.log(parsedRecipe)
-//             return res.render("recipe/parsed", { recipe, parsedRecipe })
-//         } catch (error) {
-//             console.error(error);
-//         }
-
-
-//     } catch (error) {
-//         console.log('there was an error', error)
-//     }
-// })
 
 router.post('/add/', async (req, res) => {
     console.log('start of route');
@@ -186,7 +158,7 @@ router.post('/add/', async (req, res) => {
         res.redirect(`view/${recipeName}`);
     } catch (error) {
         console.error('Error:', error);
-        res.status(500).send('Server Error');
+        return res.status(500).render('error', { message: 'Internal Server Error'});
     }
 });
 
@@ -215,6 +187,7 @@ router.put('/:recipeName', async (req, res) => {
         res.redirect('/profile');
     } catch (error) {
         console.log('did not update recipe because of ==>', error)
+        return res.status(500).render('error', { message: 'Internal Server Error'});
     }
 })
 
@@ -232,6 +205,7 @@ router.delete('/:recipeName', async (req, res) => {
         res.redirect('/profile');
     } catch (error) {
         console.log('did not delete Recipe because of >>>', error);
+        return res.status(500).render('error', { message: 'Internal Server Error'});
     }
 });
 
