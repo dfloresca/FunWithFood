@@ -13,15 +13,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SEIRFX-621/express_authentication.git"
+    "url": "git+https://github.com/dfloresca/FunWithFood.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/SEIRFX-621/express_authentication/issues"
+    "url": "https://github.com/dfloresca/FunWithFood/issues"
   },
-  "homepage": "https://github.com/SEIRFX-621/express_authentication#readme",
+  "homepage": "https://github.com/dfloresca/FunWithFood#readme",
   "devDependencies": {
     "chai": "^4.3.6",
     "mocha": "^10.0.0",
@@ -43,6 +43,7 @@
     "passport-local": "^1.0.0",
     "pg": "^8.8.0",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.21.6"
+    "sequelize": "^6.21.6",
+    "sequelize-cli": "^6.6.2"
   }
 }
