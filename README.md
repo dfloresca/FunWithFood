@@ -2,12 +2,12 @@
 
 ## Tell me what you eat and I shall tell you what you are ~`Brillat Savarin`
 
-## Let's get cooking
+## `Let's get cooking` (what this does)
 
 This app will allow you to track your favorite recipes that you have found on the internet. You will be able to create a profile, 
 add, edit and delete recipes along with an api that will parse the recipe page and extract only the recipe. This will save you the hassle of looking through the whole recipe page for the recipe.
 
-## Tools
+## `Tools` (technologies)
 
 * Sequelize user model / migration
 * Settings for PostgreSQL
@@ -18,7 +18,7 @@ add, edit and delete recipes along with an api that will parse the recipe page a
 * EJS Templating and EJS Layouts
 * Axios integration for database hit
 
-### User Ingredients
+### `User Ingredients` (Models)
 
 | Column Name | Data Type | Notes |
 | --------------- | ------------- | ------------------------------ |
@@ -29,11 +29,12 @@ add, edit and delete recipes along with an api that will parse the recipe page a
 | createdAt | Date | Auto-generated |
 | updatedAt | Date | Auto-generated |
 
-### Recipe Ingredients
+### `Recipe Ingredients` (Models)
 
-| Column Narecipesata Type | Notes |
+| Column Name | Data Type | Notes |
 | --------------- | ------------- | ------------------------------ |
 | id | Integer | Serial Primary Key, Auto-generated |
+| userId | Integer | foreign Key, links to user model |
 | recipeName | String | Name of Recipe |
 | description | String | a description of the recipe |
 | url | String | used to parse data and  to reference recipe |
@@ -42,7 +43,7 @@ add, edit and delete recipes along with an api that will parse the recipe page a
 | createdAt | Date | Auto-generated |
 | updatedAt | Date | Auto-generated |
 
-### Default recipes
+### `Default recipes` (routes)
 
 | Method | Path | Location | Purpose |
 | ------ | ---------------- | -------------- | ------------------- |
@@ -62,8 +63,8 @@ add, edit and delete recipes along with an api that will parse the recipe page a
 | PUT | /recipe/:recipeName | recipe.js | Updates selected recipe |
 | DELETE | /recipe/:recipeName | recipe.js | Deletes selected recipe |
 
-
-## `1` Fork & Clone Project & Install Dependencies
+## `Let's begin cooking` (install Instructions)
+### `1` Fork & Clone Project & Install Dependencies
 `1` The first thing that we are going to do is `fork` and `clone`
 
 `2` Now we are going to install the current dependencies that are listed inside of `package.json`
@@ -88,7 +89,7 @@ npm install
 
 
 
-## `2` Create Database & Update Sequelize Config
+### `2` Create Database & Update Sequelize Config
 
 `1` Update **`config.json`** file with the following:
 
@@ -125,7 +126,7 @@ sequelize db:create
 
 
 
-## `3` Analyze File Structure
+### `3` Analyze File Structure
 
 ```text
 ├── config
