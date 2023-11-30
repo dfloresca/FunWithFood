@@ -7,7 +7,7 @@
 This app will allow you to track your favorite recipes that you have found on the internet. You will be able to create a profile, 
 add, edit and delete recipes along with an api that will parse the recipe page and extract only the recipe. This will save you the hassle of looking through the whole recipe page for the recipe.
 
-## Ingredients
+## Tools
 
 * Sequelize user model / migration
 * Settings for PostgreSQL
@@ -18,7 +18,7 @@ add, edit and delete recipes along with an api that will parse the recipe page a
 * EJS Templating and EJS Layouts
 * Axios integration for database hit
 
-### User CookBook
+### User Ingredients
 
 | Column Name | Data Type | Notes |
 | --------------- | ------------- | ------------------------------ |
@@ -29,7 +29,7 @@ add, edit and delete recipes along with an api that will parse the recipe page a
 | createdAt | Date | Auto-generated |
 | updatedAt | Date | Auto-generated |
 
-### Recipe CookBook
+### Recipe Ingredients
 
 | Column Narecipesata Type | Notes |
 | --------------- | ------------- | ------------------------------ |
