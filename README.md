@@ -1,8 +1,13 @@
 # `FunWithFood`
 
+## Tell me what you eat and I shall tell you what you are ~`Brillat Savarin`
 
+## Let's get cooking
 
-## What it includes
+This app will allow you to track your favorite recipes that you have found on the internet. You will be able to create a profile, 
+add, edit and delete recipes along with an api that will parse the recipe page and extract only the recipe. This will save you the hassle of looking through the whole recipe page for the recipe.
+
+## Ingredients
 
 * Sequelize user model / migration
 * Settings for PostgreSQL
@@ -11,8 +16,9 @@
 * Flash messages for errors and successes
 * Passwords that are hashed with BCrypt
 * EJS Templating and EJS Layouts
+* Axios integration for database hit
 
-### User Model
+### User CookBook
 
 | Column Name | Data Type | Notes |
 | --------------- | ------------- | ------------------------------ |
@@ -23,9 +29,9 @@
 | createdAt | Date | Auto-generated |
 | updatedAt | Date | Auto-generated |
 
-### Recipe Model
+### Recipe CookBook
 
-| Column Name | Data Type | Notes |
+| Column Narecipesata Type | Notes |
 | --------------- | ------------- | ------------------------------ |
 | id | Integer | Serial Primary Key, Auto-generated |
 | recipeName | String | Name of Recipe |
@@ -36,7 +42,7 @@
 | createdAt | Date | Auto-generated |
 | updatedAt | Date | Auto-generated |
 
-### Default Routes
+### Default recipes
 
 | Method | Path | Location | Purpose |
 | ------ | ---------------- | -------------- | ------------------- |
@@ -165,6 +171,8 @@ sequelize db:create
 - `package.json`: The settings file that stores scripts and list of dependencies that are used inside your app.
 - `README.md`: The main markdown file that written to explain the details your app.
 - `server.js`: The main file that controls the entire application.
+
+## Screenshots
 
 
 ![signup page](resources/signup.png)
