@@ -1,4 +1,4 @@
-.bi {
+/* .bi {
     display: inline-block;
     width: 1rem;
     height: 1rem;
@@ -6,7 +6,7 @@
 
 /*
    * Sidebar
-   */
+
 
 @media (min-width: 768px) {
     .sidebar .offcanvas-lg {
@@ -35,7 +35,7 @@
 
 /*
    * Navbar
-   */
+   
 
 .navbar-brand {
     padding-top: .75rem;
@@ -46,4 +46,4 @@
 
 .navbar .form-control {
     padding: .75rem 1rem;
-}
+} */
