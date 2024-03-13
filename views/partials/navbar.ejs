@@ -1,0 +1,45 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Fun With Food</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <% if (!currentUser) {%>
+                    <li>
+                        <a href="/auth/signup">Signup</a>
+                    </li>
+                    <li>
+                        <a href="/auth/login">Login</a>
+                    </li>
+                <% } else { %>
+                    <li>
+                        <a href="/auth/logout">Logout</a>
+                    </li>
+                    <li>
+                        <a href="/profile">Profile</a>
+                    </li>
+    <% } %>
+
+            </ul>
+            <% if (currentUser) { %>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-link navbar-brand">
+                        <a href="/profile">
+                            <%= name %>
+                        </a>
+                    </li>
+                </ul>
+            <% } %>
+        </div>
+    </div>
+</nav>
+
+
+
+    
+
+    
