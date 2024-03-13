@@ -24,7 +24,11 @@
                     <li>
                         <a href="/profile">Profile</a>
                     </li>
-    <% } %>
+                <% } %>
+                &nbsp;&nbsp;
+                <li>
+                    <a href="/recipe/add/<%= currentUser.id %>"> Add Recipe</a>
+                </li>
 
             </ul>
             <% if (currentUser) { %>
