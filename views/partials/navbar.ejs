@@ -18,17 +18,17 @@
                     </li>
                 <% } else { %>
                     <li>
-                        <a href="/auth/logout">Logout</a>
+                        <a href="/profile">Profile</a>
                     </li>
                     &nbsp;&nbsp;
                     <li>
-                        <a href="/profile">Profile</a>
+                        <a href="/recipe/add/<%= currentUser.id %>"> Add Recipe</a>
+                    </li>
+                    &nbsp;&nbsp;
+                    <li>
+                        <a href="/auth/logout">Logout</a>
                     </li>
                 <% } %>
-                &nbsp;&nbsp;
-                <li>
-                    <a href="/recipe/add/<%= currentUser.id %>"> Add Recipe</a>
-                </li>
 
             </ul>
             <% if (currentUser) { %>
