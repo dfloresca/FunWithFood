@@ -3,7 +3,7 @@
 <section class="bg-light">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 mb-4 mb-sm-5">
+            <div class="col-lg-12 mb-4 mb-sm-5">
                 <div class="card card-style1 border-0">
                     <div class="card-body p-1-9 p-sm-2-3 p-md-6 p-lg-7">
                         <% if (response.data.recipe=== 'bad-recipe') { %>
@@ -11,35 +11,40 @@
                                 This recipe cannot be parsed <a href="/profile" class="alert-link"> Return to profile</a>
                             </div>
                         <% } else { %>
-                            <div class="card mb-3">
-                                <img src="<%= response.data.recipe.image %>" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title"><%= recipe.recipeName %></h5>
-                                    <p class="card-text">
-                                        Description: <%= response.data.recipe.description %>
-                                    </p>
-                                    <p class="card-text">
-                                        Original Url: <a href="<%= recipe.url %>"><%= recipe.url %></a>
-                                    </p>
-                                    <p class="card-text">
-                                        Cook Time: <%= response.data.recipe.cookTime %>
-                                    </p>
-                                    <p class="card-text">
-                                        Prep Time: <%= response.data.recipe.prepTime %>
-                                    </p>
-                                    <p class="card-text">
-                                        Yield: <%= response.data.recipe.recipeYield %>
-                                    </p>
-                                    <ul class="list-group list-group-flush">
-                                        <p>Ingredients:</p>
-                                        <% for( let i=0; i < response.data.recipe.recipeIngredients.length; i++ ) { %>
-                                        <li class="list-group-item">
-                                            <%= response.data.recipe.recipeIngredients[i] %>
-                                        </li>
-                                        <% } %>
-                                    </ul>
-                                    <ul class="list-group list-group-flush">
-                                        <p>Instructions:</p>
+                            <div class="row">
+                                <div class="card col-lg-8 mb-3">
+                                    <img src="<%= response.data.recipe.image %>" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><%= recipe.recipeName %></h5>
+                                        <p class="card-text">
+                                            Description: <%= response.data.recipe.description %>
+                                        </p>
+                                        <p class="card-text">
+                                            Original Url: <a href="<%= recipe.url %>"><%= recipe.url %></a>
+                                        </p>
+                                        <p class="card-text">
+                                            Cook Time: <%= response.data.recipe.cookTime %>
+                                        </p>
+                                        <p class="card-text">
+                                            Prep Time: <%= response.data.recipe.prepTime %>
+                                        </p>
+                                        <p class="card-text">
+                                            Yield: <%= response.data.recipe.recipeYield %>
+                                        </p>
+                                        <ul class="list-group list-group-flush">
+                                            <p>Ingredients:</p>
+                                            <% for( let i=0; i < response.data.recipe.recipeIngredients.length; i++ ) { %>
+                                            <li class="list-group-item">
+                                                <%= response.data.recipe.recipeIngredients[i] %>
+                                            </li>
+                                            <% } %>
+                                        </ul>
+                                        
+                                    </div>
+                                </div>
+                                <div class="card col-lg-4 mb-3">
+                                    <ul class="list-group list-group-numbered">
+                                        <h5>Instructions:</h5>
                                         <% for( let i=0; i < response.data.recipe.recipeIngredients.length; i++ ) { %>
                                         <li class="list-group-item">
                                             <%= response.data.recipe.recipeInstructions[i].text %>
