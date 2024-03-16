@@ -1,58 +1,50 @@
-<div class="container">
-  <div class="main-body">
-  
-        
-  
-        <div class="row gutters-sm">
-          <div class="col-md-4 mb-3">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex flex-column align-items-center text-center">
-                  <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
-                  <div class="mt-3">
-                    <h4><%= name %></h4>
-                  </div>
-                </div>
+<div class="container text-center">
+  <div class="main-body pt-4">
+    <div class="row gutters-sm">
+      <div class="col-md-4 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex flex-column align-items-center text-center">
+              <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+              <div class="mt-3">
+                <h4><%= name %></h4>
               </div>
             </div>
-            
-          </div>
-          <div class="col-md-8">
-            <div class="row gutters-sm">
-              <div class="col-sm-6 mb-3">
-                <div class="card h-100">
-                  <div class="card-body">
-                    <h6 class="d-flex align-items-center mb-3">Recipes<a class="btn btn-info " target="__blank" href="/recipe/add/<%= id %>">Add Recipe</a></h6>
-                    <div class="container mt-5">
-                      <div class="table-responsive">
-                        <table class="table table-striped">
-                          <thead class="table-dark">
-                            <tr>
-                              <th scope="col">ID</th>
-                              <th scope="col">Recipe name</th>
-                              <th scope="col">Description</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <% for( let i = 0; i < userRecipes.length; i++ ) { %>
-                              <tr>
-                                <th scope="row"><%= userRecipes[i].id %></th>
-                                <td><a href="/recipe/view/<%= userRecipes[i].recipeName %>"><%= userRecipes[i].recipeName %></a></td>
-                                <td><%= userRecipes[i].description %></a></td>
-                            </tr>
-                            <% } %>
-                          </tbody>
-                        </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-
-
           </div>
         </div>
-
       </div>
+      <div class="col-md-8">
+        <div class="row gutters-sm">
+          <div class="col-sm-6 mb-3">
+            <div class="card h-100">
+              <div class="card-body">
+                <h6 class="d-flex align-items-center mb-3">Recipes<a class="btn btn-info " target="__blank" href="/recipe/add/<%= id %>">Add Recipe</a></h6>
+                <div class="container mt-5">
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead class="table-dark">
+                        <tr>
+                          <th scope="col">ID</th>
+                          <th scope="col">Recipe name</th>
+                          <th scope="col">Description</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% for( let i = 0; i < userRecipes.length; i++ ) { %>
+                          <tr>
+                            <th scope="row"><%= userRecipes[i].id %></th>
+                            <td><a href="/recipe/view/<%= userRecipes[i].recipeName %>"><%= userRecipes[i].recipeName %></a></td>
+                            <td><%= userRecipes[i].description %></a></td>
+                        </tr>
+                        <% } %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
