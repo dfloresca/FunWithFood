@@ -8,7 +8,8 @@
                     <div class="card-body p-1-9 p-sm-2-3 p-md-6 p-lg-7">
                         <% if (response.data.recipe=== 'bad-recipe') { %>
                             <div class="alert alert-primary" role="alert">
-                                This recipe cannot be parsed <a href="/profile" class="alert-link"> Return to profile</a>
+                                This recipe cannot be parsed <a href="/profile" class="alert-link"> Return to profile</a>,
+                                Alternatively you can go to the actual recipe page <a href="<%= recipe.url %>" class="alert-link"> <%= recipe.recipeName %></a>
                             </div>
                         <% } else { %>
                             <div class="row">
