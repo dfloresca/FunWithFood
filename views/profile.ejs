@@ -33,7 +33,7 @@
                         <% for( let i = 0; i < userRecipes.length; i++ ) { %>
                           <tr>
                             <th scope="row"><%= userRecipes[i].id %></th>
-                            <td><a href="/recipe/view/<%= userRecipes[i].recipeName %>"><%= userRecipes[i].recipeName %></a></td>
+                            <td><a href="/recipe/view/<%= userRecipes[i].id %>"><%= userRecipes[i].recipeName %></a></td>
                             <td><%= userRecipes[i].description %></a></td>
                         </tr>
                         <% } %>
