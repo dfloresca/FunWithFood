@@ -13,7 +13,7 @@ const { API_HOST, API_KEY } = {
     API_KEY: process.env.API_KEY
 }
 
-router.get("/add/:userId", (req, res) => {
+router.get("/add/:userId", async (req, res) => {
     async function findOneUser() {
         try {
             const userId = req.params
@@ -21,24 +21,25 @@ router.get("/add/:userId", (req, res) => {
                 where: { userId: userId }
             });
             if (user.id !== userId) {
-                return res.status(404).render('error', { message: 'Incorrect User'});;
+                return res.status(404).render('404', { message: 'Incorrect User'});;
             }
         } catch (error) {
             console.log('did not find user b/c of >>>', error);
-            return res.status(500).render('error', { message: 'Internal Server Error'});
+            return res.status(500).render('404', { message: 'Internal Server Error'});
         }
     }
     return res.render("recipe/add");
 })
 
-router.get("/view/:recipeName", async (req, res) => {
+
+router.get("/view/:id", async (req, res) => {
 
     try {
 
-        const selectedRecipe = req.params.recipeName
+        const selectedRecipe = req.params.id
         console.log('selectedRecipe')
         const recipe = await db.recipe.findOne({
-            where: { recipeName: selectedRecipe }
+            where: { id: selectedRecipe }
         });
         console.log(recipe)
         // if (recipeName === recipe.recipeName) {
