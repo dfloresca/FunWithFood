@@ -32,15 +32,15 @@
                                                 recipe.signatureDish %></span>
                                     </li>
                                     <li class="mb-2 mb-xl-3 display-28"><span
-                                            class="display-26 text-secondary me-2 font-weight-600">Parsed Recipe: <a href="/recipe/parsed/<%= recipe.recipeName %>"><%= recipe.recipeName %>: Parsed</a></span>
+                                            class="display-26 text-secondary me-2 font-weight-600">Parsed Recipe: <a href="/recipe/parsed/<%= recipe.id %>"><%= recipe.recipeName %>: Parsed</a></span>
                                     </li>
 
                                 </ul>
                             </div>
                             
                         </div>
-                        <a class="btn btn-info " target="__blank" href="/recipe/delete/<%= recipe.recipeName %>">Delete?</a>
-                        <a class="btn btn-info " target="__blank" href="/recipe/edit/<%= recipe.recipeName %>">Edit?</a>
+                        <a class="btn btn-info " target="__blank" href="/recipe/delete/<%= recipe.id %>">Delete?</a>
+                        <a class="btn btn-info " target="__blank" href="/recipe/edit/<%= recipe.id %>">Edit?</a>
                     </div>
                 </div>
             </div>
