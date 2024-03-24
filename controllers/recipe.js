@@ -21,8 +21,6 @@ router.get("/new", isLoggedIn,  async (req, res) => {
 
 router.post('/add/', async (req, res) => {
     try {
-        const { id } = req.user.get();
-        const user = await db.user.findOne({ where: { id: id } });
         const { recipeName, url, description, signatureDish, cooked } = req.body;
         const newRecipe = await user.createRecipe({
             recipeName,
@@ -33,16 +31,16 @@ router.post('/add/', async (req, res) => {
         });
         res.redirect(`view/${recipeName}`);
     } catch (error) {
-        return res.status(500).render('404', { message: 'Internal Server Error'});
+        return res.status(404).render('404', { message: 'Unable to create recipe'});
     }
 });
 
 // Find Recipe by ID
 router.get("/:id", isLoggedIn, async (req, res) => {
     try {
-        const selectedRecipe = req.params.id
+        const { id } = req.params;
         const recipe = await db.recipe.findOne({
-            where: { id: selectedRecipe }
+            where: { id: id }
         });
         return res.render("recipe/view", { recipe });
     } catch (error) {
@@ -54,9 +52,9 @@ router.get("/:id", isLoggedIn, async (req, res) => {
 // delete route
 router.get("/:id/confirm_delete", isLoggedIn, async (req, res) => {
     try {
-        const selectedRecipe = req.params.id
+        const { id } = req.params;
         const recipe = await db.recipe.findOne({
-            where: { id: selectedRecipe }
+            where: { id: id }
         });
         return res.render("recipe/delete", { recipe });
     } catch (error) {
@@ -82,9 +80,9 @@ router.delete('/:id', async (req, res) => {
 // Edit Route
 router.get("/:id/edit", isLoggedIn, async (req, res) => {
     try {
-        const selectedRecipe = req.params.id
+        const { id } = req.params;
         const recipe = await db.recipe.findOne({
-            where: { id: selectedRecipe }
+            where: { id: id }
         });
         return res.render("recipe/edit", { recipe });
     } catch (error) {
@@ -108,16 +106,16 @@ router.put('/:id', async (req, res) => {
         req.flash('success', 'recipe has been successfully updated');
         res.redirect('/profile');
     } catch (error) {
-        return res.status(500).render('404', { message: 'Internal Server Error'});
+        return res.status(500).render('404', { message: 'Unable to update recipe'});
     }
 })
 
 // Recipe Parser
 router.get('/:id/parsed', isLoggedIn, async (req, res) => {
     try {
-        const selectedRecipe = req.params.id
+        const { id } = req.params;
         const recipe = await db.recipe.findOne({
-            where: { id: selectedRecipe }
+            where: { id: id }
         });
 
         if (!recipe) {
