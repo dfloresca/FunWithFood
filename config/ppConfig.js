@@ -34,7 +34,8 @@ passport.deserializeUser(async (id, cb) => {
         if (foundUser) {
             cb(null, foundUser);
         }
-    } catch (err) {        
+    } catch (err) { 
+            cb(null)
     }
 });
 
