@@ -13,18 +13,20 @@ router.get("/new", isLoggedIn,  async (req, res) => {
 })
 
 
-router.post('/add/', async (req, res) => {
+router.post('/new', isLoggedIn, async (req, res) => {
     try {
         const { recipeName, url, description, signatureDish, cooked } = req.body;
-        const newRecipe = await user.createRecipe({
+        const newRecipe = await req.user.createRecipe({
             recipeName,
             url,
             description,
             signatureDish,
             cooked
         });
-        res.redirect(`view/${recipeName}`);
+        console.log(newRecipe.id)
+        res.redirect('/profile');
     } catch (error) {
+        console.log(error)
         return res.status(404).render('404', { message: 'Unable to create recipe'});
     }
 });
@@ -54,7 +56,7 @@ router.get("/:id/confirm_delete", isLoggedIn, async (req, res) => {
         });
         return res.render("recipe/delete", { recipe });
     } catch (error) {
-        return res.status(500).render('404', { message: 'Internal Server Error'});
+        return res.status(404).render('404', { message: 'Recipe not found'});
     }
 });
 
