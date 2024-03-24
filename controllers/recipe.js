@@ -20,16 +20,10 @@ router.get("/new", isLoggedIn,  async (req, res) => {
 })
 
 router.post('/add/', async (req, res) => {
-    console.log('start of route');
     try {
         const { id } = req.user.get();
         const user = await db.user.findOne({ where: { id: id } });
-        console.log('the user name', user.name);
-
-        console.log('req.body data', req.body)
         const { recipeName, url, description, signatureDish, cooked } = req.body;
-        console.log('adding recipe to this user:', user.name);
-
         const newRecipe = await user.createRecipe({
             recipeName,
             url,
@@ -37,11 +31,8 @@ router.post('/add/', async (req, res) => {
             signatureDish,
             cooked
         });
-
-        console.log(newRecipe);
         res.redirect(`view/${recipeName}`);
     } catch (error) {
-        console.error('Error:', error);
         return res.status(500).render('404', { message: 'Internal Server Error'});
     }
 });
@@ -69,7 +60,6 @@ router.get("/:id/confirm_delete", isLoggedIn, async (req, res) => {
         });
         return res.render("recipe/delete", { recipe });
     } catch (error) {
-        console.log('did not find recipe b/c of >>>', error);
         return res.status(500).render('404', { message: 'Internal Server Error'});
     }
 });
@@ -98,7 +88,6 @@ router.get("/:id/edit", isLoggedIn, async (req, res) => {
         });
         return res.render("recipe/edit", { recipe });
     } catch (error) {
-        console.log('did not find recipe b/c of >>>', error);
         return res.status(500).render('404', { message: 'Internal Server Error'});
     }
 });
@@ -119,14 +108,12 @@ router.put('/:id', async (req, res) => {
         req.flash('success', 'recipe has been successfully updated');
         res.redirect('/profile');
     } catch (error) {
-        console.log('did not update recipe because of ==>', error)
         return res.status(500).render('404', { message: 'Internal Server Error'});
     }
 })
 
 // Recipe Parser
 router.get('/:id/parsed', isLoggedIn, async (req, res) => {
-    console.log("Let's extract the recipe data from a URL");
     try {
         const selectedRecipe = req.params.id
         const recipe = await db.recipe.findOne({
@@ -150,17 +137,11 @@ router.get('/:id/parsed', isLoggedIn, async (req, res) => {
 
         try {
             const response = await axios.request(parsedRecipe);
-            console.log('recipe Data', response.data);
-            // const { recipeData } = response.data;
-            console.log('recipe Data description', response.data.recipe.description);
-            console.log('recipe data cookTime', response.data.recipe.recipeInstructions)
             return res.render("recipe/parsed", { recipe, response });
         } catch (error) {
-            console.error('Error parsing recipe:', error);
             return res.status(500).render('404', { message: 'Internal Server Error'});
         }
     } catch (error) {
-        console.log('There was an error:', error);
         return res.status(500).render('404', { message: 'Internal Server Error'});
     }
 });
