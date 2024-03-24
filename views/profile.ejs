@@ -18,7 +18,7 @@
           <div class="col-sm-6 mb-3">
             <div class="card h-100">
               <div class="card-body">
-                <h6 class="d-flex align-items-center mb-3">Recipes<a class="btn btn-info " target="__blank" href="/recipe/add/<%= id %>">Add Recipe</a></h6>
+                <h6 class="d-flex align-items-center mb-3">Recipes<a class="btn btn-info " target="__blank" href="/recipe/new">Add Recipe</a></h6>
                 <div class="container mt-5">
                   <div class="table-responsive">
                     <table class="table table-striped">
@@ -33,7 +33,7 @@
                         <% for( let i = 0; i < userRecipes.length; i++ ) { %>
                           <tr>
                             <th scope="row"><%= userRecipes[i].id %></th>
-                            <td><a href="/recipe/view/<%= userRecipes[i].id %>"><%= userRecipes[i].recipeName %></a></td>
+                            <td><a href="/recipe/<%= userRecipes[i].id %>"><%= userRecipes[i].recipeName %></a></td>
                             <td><%= userRecipes[i].description %></a></td>
                         </tr>
                         <% } %>
