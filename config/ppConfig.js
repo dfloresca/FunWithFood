@@ -19,8 +19,6 @@ const STRATEGY = new LocalStrategy({
                 cb(null, foundUser);
             }
         } catch (err) {
-            console.log('------- Error below -----------');
-            console.log(err);
         }
 });
 
@@ -36,9 +34,7 @@ passport.deserializeUser(async (id, cb) => {
         if (foundUser) {
             cb(null, foundUser);
         }
-    } catch (err) {
-        console.log('---- Yo... There is an error ----');
-        console.log(err);
+    } catch (err) {        
     }
 });
 

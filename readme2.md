@@ -140,7 +140,6 @@ const flash = require('connect-flash');
 
 ```js
 const SECRET_SESSION = process.env.SECRET_SESSION;
-// console.log(SECRET_SESSION);
 ```
 
 `5` Add session and flash middleware to be used throughout app inside `server.js`
@@ -161,7 +160,6 @@ app.use(session({
 `7` Add **function**  as middle to store flash messages and user on `res.locals` 
 ```js
 app.use((req, res, next) => {
-  console.log(res.locals);
   res.locals.alerts = req.flash();
   res.locals.currentUser = req.user;
   next();
@@ -205,8 +203,7 @@ const STRATEGY = new LocalStrategy({
                 cb(null, user);
             }
         } catch (err) {
-            console.log('------- Error below -----------');
-            console.log(err);
+            
         }
 })
 ```
@@ -231,8 +228,6 @@ passport.deserializeUser(async (id, cb) => {
             cb(null, user)
         }
     } catch (err) {
-        console.log('---- Yo... There is an error ----');
-        console.log(err);
     }
 });
 ```
@@ -280,7 +275,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use((req, res, next) => {
-  console.log(res.locals);
   res.locals.alerts = req.flash();
   res.locals.currentUser = req.user;
   next();
@@ -409,7 +403,6 @@ router.post('/signup', async (req, res) => {
 
     if (created) {
         // if created, success and we will redirect back to / page
-        console.log(`----- ${user.name} was created -----`);
         const successObject = {
             successRedirect: '/',
             successFlash: `Welcome ${user.name}. Account was created and logging in...`
@@ -423,8 +416,6 @@ router.post('/signup', async (req, res) => {
     }
   } catch (error) {
         // There was an error that came back; therefore, we just have the user try again
-        console.log('**************Error');
-        console.log(error);
         req.flash('error', 'Either email or password is incorrect. Please try again.');
         res.redirect('/auth/signup');
   }

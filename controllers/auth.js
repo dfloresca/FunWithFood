@@ -41,7 +41,6 @@ router.post('/signup', async (req, res) => {
 
     if (created) {
         // if created, success and we will redirect back to / page
-        console.log(`----- ${_user.name} was created -----`);
         const successObject = {
             successRedirect: '/',
             successFlash: `Welcome ${_user.name}. Account was created and logging in...`
@@ -55,8 +54,6 @@ router.post('/signup', async (req, res) => {
     }
   } catch (error) {
         // There was an error that came back; therefore, we just have the user try again
-        console.log('**************Error');
-        console.log(error);
         req.flash('error', 'Either email or password is incorrect. Please try again.');
         res.redirect('/auth/signup');
   }

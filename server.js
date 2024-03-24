@@ -35,7 +35,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use((req, res, next) => {
-  console.log(res.locals);
   res.locals.alerts = req.flash();
   res.locals.currentUser = req.user;
   next();
@@ -59,7 +58,6 @@ app.get('/profile', isLoggedIn, async (req, res) => {
     })
     res.render('profile', { id, name, email, userRecipes });
   } catch (error) {
-    console.log('Error ====>', error);
     res.status(500).send('error occurred');
   }
 });
